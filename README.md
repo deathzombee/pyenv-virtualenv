@@ -8,6 +8,8 @@ pyenv-virtualenv is a [pyenv](https://github.com/pyenv/pyenv) plugin
 that provides features to manage virtualenvs and conda environments
 for Python on UNIX-like systems.
 
+**Windows users:** This plugin is designed for Unix-like systems (Linux, macOS, WSL). For native Windows support, this repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as a submodule and adds Windows-compatible virtualenv scripts. See the [Windows Support](#windows-support) section below for details.
+
 (NOTICE: If you are an existing user of [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper)
 and you love it, [pyenv-virtualenvwrapper](https://github.com/pyenv/pyenv-virtualenvwrapper) may help you
 (additionally) to manage your virtualenvs.)
@@ -40,10 +42,22 @@ git config --global core.autocrlf input
     git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
     ```
 
+    If you want to include pyenv-win as well (for reference or Windows compatibility), clone with submodules:
+
+    ```bash
+    git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+    ```
+
     For the Fish shell:
 
     ```fish
     git clone https://github.com/pyenv/pyenv-virtualenv.git (pyenv root)/plugins/pyenv-virtualenv
+    ```
+
+    Or with submodules:
+
+    ```fish
+    git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git (pyenv root)/plugins/pyenv-virtualenv
     ```
 
 2. (OPTIONAL) **Add `pyenv virtualenv-init` to your shell** to enable auto-activation of virtualenvs. This is entirely optional but pretty useful. See "Activate virtualenv" below.
@@ -94,6 +108,96 @@ then add
 eval "$(pyenv virtualenv-init -)"
 ```
 to your shell's `.rc` file (as stated in the caveats). You'll only ever have to do this once.
+
+
+## Windows Support
+
+This repository adds virtualenv functionality to [pyenv-win](https://github.com/pyenv-win/pyenv-win). The pyenv-win submodule is included for reference and development purposes.
+
+### For Windows Users
+
+**Using pyenv-virtualenv with pyenv-win:**
+
+#### Quick Install (PowerShell)
+
+1. **Ensure pyenv-win is installed**
+
+   If you don't have pyenv-win yet, install it first:
+   ```powershell
+   Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+   ```
+
+2. **Clone and install pyenv-virtualenv**
+
+   ```powershell
+   # Clone the repository with submodules
+   git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git
+   cd pyenv-virtualenv
+   
+   # Run the installer
+   .\install-pyenv-virtualenv.ps1
+   ```
+
+   The installer will:
+   - Check for pyenv-win installation
+   - Copy the Windows scripts to the appropriate location
+   - Add the scripts to your PATH
+   - Display usage instructions
+
+3. **Restart your terminal** and start using pyenv-virtualenv commands!
+
+#### Manual Installation
+
+Alternatively, you can install manually:
+
+1. **Clone this repository with submodules**
+
+   ```powershell
+   git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git
+   cd pyenv-virtualenv
+   ```
+
+2. **Add the Windows scripts to your PATH**
+
+   Add the `bin-win` directory to your PATH so the pyenv-virtualenv commands are available:
+   
+   ```powershell
+   # Temporarily (current session only)
+   $env:PATH = "C:\path\to\pyenv-virtualenv\bin-win;$env:PATH"
+   
+   # Permanently
+   [System.Environment]::SetEnvironmentVariable('PATH', "C:\path\to\pyenv-virtualenv\bin-win;$env:PATH", 'User')
+   ```
+
+#### Usage
+
+This repository provides Windows batch scripts (.bat) in the `bin-win/` directory to add virtualenv functionality to pyenv-win. See [bin-win/README.md](bin-win/README.md) for detailed documentation.
+
+```powershell
+# Create a virtualenv
+pyenv-virtualenv <python-version> <virtualenv-name>
+
+# Activate a virtualenv  
+pyenv activate <virtualenv-name>
+
+# Deactivate
+pyenv deactivate
+
+# List virtualenvs
+pyenv-virtualenvs
+
+# Delete a virtualenv
+pyenv-virtualenv-delete <virtualenv-name>
+```
+
+### Alternative: Use Windows Subsystem for Linux (WSL)
+   
+   If you prefer using WSL, you can use the standard pyenv and pyenv-virtualenv as documented above. Make sure to install pyenv and pyenv-virtualenv within your WSL environment, not in Windows.
+   
+   When using WSL, remember to configure Git to use Unix-style line endings:
+   ```sh
+   git config --global core.autocrlf input
+   ```
 
 
 ## Usage
