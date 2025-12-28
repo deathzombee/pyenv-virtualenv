@@ -65,10 +65,8 @@ if not defined VERSION (
 if not defined VENV_NAME (
     set VENV_NAME=%~1
     shift
-    goto :parse_args
 )
-shift
-goto :parse_args
+goto :end_parse
 
 :end_parse
 
@@ -132,9 +130,17 @@ if exist "%VENV_LINK%" (
         del "%VENV_LINK%"
     )
 )
-mklink /D "%VENV_LINK%" "%VENV_PATH%" >nul
+mklink /D "%VENV_LINK%" "%VENV_PATH%" >nul 2>&1
+
+if errorlevel 1 (
+    echo Warning: Failed to create symlink at %VENV_LINK%
+    echo This may require administrator privileges.
+    echo The virtualenv is still usable at: %VENV_PATH%
+    echo.
+)
 
 echo Successfully created virtualenv: %VENV_NAME%
+echo Location: %VENV_PATH%
 echo.
 echo To activate: pyenv activate %VENV_NAME%
 echo To deactivate: pyenv deactivate

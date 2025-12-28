@@ -112,7 +112,7 @@ to your shell's `.rc` file (as stated in the caveats). You'll only ever have to 
 
 ## Windows Support
 
-This repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as a submodule to provide cross-platform Python version management. **pyenv-win itself does not include virtualenv functionality**, so this project extends it with Windows-compatible virtualenv management scripts.
+This repository adds virtualenv functionality to [pyenv-win](https://github.com/pyenv-win/pyenv-win). The pyenv-win submodule is included for reference and development purposes.
 
 ### For Windows Users
 
