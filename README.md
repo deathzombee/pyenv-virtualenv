@@ -8,6 +8,8 @@ pyenv-virtualenv is a [pyenv](https://github.com/pyenv/pyenv) plugin
 that provides features to manage virtualenvs and conda environments
 for Python on UNIX-like systems.
 
+**Windows users:** This plugin is designed for Unix-like systems (Linux, macOS, WSL). If you're using Windows, please use [pyenv-win](https://github.com/pyenv-win/pyenv-win), which has built-in virtualenv support. See the [Windows Support](#windows-support) section below for more details.
+
 (NOTICE: If you are an existing user of [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper)
 and you love it, [pyenv-virtualenvwrapper](https://github.com/pyenv/pyenv-virtualenvwrapper) may help you
 (additionally) to manage your virtualenvs.)
@@ -94,6 +96,43 @@ then add
 eval "$(pyenv virtualenv-init -)"
 ```
 to your shell's `.rc` file (as stated in the caveats). You'll only ever have to do this once.
+
+
+## Windows Support
+
+**pyenv-virtualenv is not compatible with native Windows.** This plugin is designed for Unix-like systems (Linux, macOS, WSL) and uses bash scripts that require a Unix-like environment.
+
+### For Windows Users
+
+If you're using Windows, you have two options:
+
+1. **Use pyenv-win (Recommended for native Windows)**
+   
+   [pyenv-win](https://github.com/pyenv-win/pyenv-win) is a Windows port of pyenv that includes built-in virtualenv support. It works natively on Windows without requiring WSL or other Unix-like environments.
+   
+   To use virtualenvs with pyenv-win:
+   ```powershell
+   # Install pyenv-win first (see pyenv-win documentation)
+   # Then create a virtualenv
+   pyenv virtualenv <python-version> <virtualenv-name>
+   
+   # Activate a virtualenv
+   pyenv activate <virtualenv-name>
+   
+   # Deactivate
+   pyenv deactivate
+   ```
+   
+   For installation and usage instructions, please refer to the [pyenv-win documentation](https://github.com/pyenv-win/pyenv-win).
+
+2. **Use Windows Subsystem for Linux (WSL)**
+   
+   If you prefer using WSL, you can use the standard pyenv and pyenv-virtualenv as documented above. Make sure to install pyenv and pyenv-virtualenv within your WSL environment, not in Windows.
+   
+   When using WSL, remember to configure Git to use Unix-style line endings:
+   ```sh
+   git config --global core.autocrlf input
+   ```
 
 
 ## Usage
