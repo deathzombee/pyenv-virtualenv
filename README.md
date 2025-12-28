@@ -42,10 +42,22 @@ git config --global core.autocrlf input
     git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
     ```
 
+    If you want to include pyenv-win as well (for reference or Windows compatibility), clone with submodules:
+
+    ```bash
+    git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+    ```
+
     For the Fish shell:
 
     ```fish
     git clone https://github.com/pyenv/pyenv-virtualenv.git (pyenv root)/plugins/pyenv-virtualenv
+    ```
+
+    Or with submodules:
+
+    ```fish
+    git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git (pyenv root)/plugins/pyenv-virtualenv
     ```
 
 2. (OPTIONAL) **Add `pyenv virtualenv-init` to your shell** to enable auto-activation of virtualenvs. This is entirely optional but pretty useful. See "Activate virtualenv" below.
@@ -110,10 +122,13 @@ If you're using Windows, you have two options:
    
    [pyenv-win](https://github.com/pyenv-win/pyenv-win) is a Windows port of pyenv that includes built-in virtualenv support. It works natively on Windows without requiring WSL or other Unix-like environments.
    
-   To use virtualenvs with pyenv-win:
+   This repository includes pyenv-win as a submodule in the `pyenv-win/` directory for reference. To use pyenv-win:
+   
    ```powershell
-   # Install pyenv-win first (see pyenv-win documentation)
-   # Then create a virtualenv
+   # If you cloned this repo with submodules, pyenv-win is available in the pyenv-win/ directory
+   # Otherwise, install pyenv-win separately (see pyenv-win documentation)
+   
+   # Create a virtualenv
    pyenv virtualenv <python-version> <virtualenv-name>
    
    # Activate a virtualenv
@@ -123,7 +138,7 @@ If you're using Windows, you have two options:
    pyenv deactivate
    ```
    
-   For installation and usage instructions, please refer to the [pyenv-win documentation](https://github.com/pyenv-win/pyenv-win).
+   For installation and usage instructions, please refer to the [pyenv-win documentation](https://github.com/pyenv-win/pyenv-win) or check the `pyenv-win/` subdirectory in this repository.
 
 2. **Use Windows Subsystem for Linux (WSL)**
    
