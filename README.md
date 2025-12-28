@@ -8,7 +8,7 @@ pyenv-virtualenv is a [pyenv](https://github.com/pyenv/pyenv) plugin
 that provides features to manage virtualenvs and conda environments
 for Python on UNIX-like systems.
 
-**Windows users:** This plugin is designed for Unix-like systems (Linux, macOS, WSL). If you're using Windows, please use [pyenv-win](https://github.com/pyenv-win/pyenv-win), which has built-in virtualenv support. See the [Windows Support](#windows-support) section below for more details.
+**Windows users:** This plugin is designed for Unix-like systems (Linux, macOS, WSL). For native Windows support, this repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as a submodule and adds Windows-compatible virtualenv scripts. See the [Windows Support](#windows-support) section below for details.
 
 (NOTICE: If you are an existing user of [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper)
 and you love it, [pyenv-virtualenvwrapper](https://github.com/pyenv/pyenv-virtualenvwrapper) may help you
@@ -112,35 +112,57 @@ to your shell's `.rc` file (as stated in the caveats). You'll only ever have to 
 
 ## Windows Support
 
-**pyenv-virtualenv is not compatible with native Windows.** This plugin is designed for Unix-like systems (Linux, macOS, WSL) and uses bash scripts that require a Unix-like environment.
+This repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as a submodule to provide cross-platform Python version management. **pyenv-win itself does not include virtualenv functionality**, so this project extends it with Windows-compatible virtualenv management scripts.
 
 ### For Windows Users
 
-If you're using Windows, you have two options:
+**Using pyenv-virtualenv with pyenv-win:**
 
-1. **Use pyenv-win (Recommended for native Windows)**
-   
-   [pyenv-win](https://github.com/pyenv-win/pyenv-win) is a Windows port of pyenv that includes built-in virtualenv support. It works natively on Windows without requiring WSL or other Unix-like environments.
-   
-   This repository includes pyenv-win as a submodule in the `pyenv-win/` directory for reference. To use pyenv-win:
+1. **Clone this repository with submodules**
+
+   ```powershell
+   git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git
+   cd pyenv-virtualenv
+   ```
+
+2. **Install pyenv-win** (if not already installed)
+
+   The pyenv-win submodule provides the base Python version management. Follow the [pyenv-win installation instructions](https://github.com/pyenv-win/pyenv-win) or use the included submodule.
+
+3. **Add the Windows scripts to your PATH**
+
+   Add the `bin-win` directory to your PATH so the pyenv-virtualenv commands are available:
    
    ```powershell
-   # If you cloned this repo with submodules, pyenv-win is available in the pyenv-win/ directory
-   # Otherwise, install pyenv-win separately (see pyenv-win documentation)
+   # Temporarily (current session only)
+   $env:PATH = "C:\path\to\pyenv-virtualenv\bin-win;$env:PATH"
    
+   # Permanently
+   [System.Environment]::SetEnvironmentVariable('PATH', "C:\path\to\pyenv-virtualenv\bin-win;$env:PATH", 'User')
+   ```
+
+4. **Use pyenv-virtualenv commands on Windows**
+
+   This repository provides Windows batch scripts (.bat) in the `bin-win/` directory to add virtualenv functionality to pyenv-win. See [bin-win/README.md](bin-win/README.md) for detailed documentation.
+   
+   ```powershell
    # Create a virtualenv
-   pyenv virtualenv <python-version> <virtualenv-name>
+   pyenv-virtualenv <python-version> <virtualenv-name>
    
-   # Activate a virtualenv
+   # Activate a virtualenv  
    pyenv activate <virtualenv-name>
    
    # Deactivate
    pyenv deactivate
-   ```
    
-   For installation and usage instructions, please refer to the [pyenv-win documentation](https://github.com/pyenv-win/pyenv-win) or check the `pyenv-win/` subdirectory in this repository.
+   # List virtualenvs
+   pyenv-virtualenvs
+   
+   # Delete a virtualenv
+   pyenv-virtualenv-delete <virtualenv-name>
+   ```
 
-2. **Use Windows Subsystem for Linux (WSL)**
+### Alternative: Use Windows Subsystem for Linux (WSL)
    
    If you prefer using WSL, you can use the standard pyenv and pyenv-virtualenv as documented above. Make sure to install pyenv and pyenv-virtualenv within your WSL environment, not in Windows.
    
