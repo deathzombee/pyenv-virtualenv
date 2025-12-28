@@ -73,8 +73,13 @@ rmdir /s /q "%VENV_PATH%"
 
 :: Remove symlink if it exists
 if exist "%PYENV_ROOT%\versions\%VENV_NAME%" (
-    rmdir "%PYENV_ROOT%\versions\%VENV_NAME%" 2>nul
-    del "%PYENV_ROOT%\versions\%VENV_NAME%" 2>nul
+    :: Check if it's a directory junction/symlink
+    dir /AL "%PYENV_ROOT%\versions\%VENV_NAME%" >nul 2>&1
+    if not errorlevel 1 (
+        rmdir "%PYENV_ROOT%\versions\%VENV_NAME%"
+    ) else (
+        del "%PYENV_ROOT%\versions\%VENV_NAME%" 2>nul
+    )
 )
 
 echo Successfully deleted virtualenv: %VENV_NAME%

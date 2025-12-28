@@ -1,5 +1,4 @@
 @echo off
-setlocal
 
 :: pyenv-activate for Windows
 :: Activate a Python virtualenv
@@ -19,14 +18,14 @@ if not defined PYENV_ROOT (
 set VENV_NAME=%~1
 set QUIET=
 
+if "%~1"=="--quiet" (
+    set QUIET=1
+    set VENV_NAME=%~2
+)
+
 if "%VENV_NAME%"=="" (
     echo Usage: pyenv activate VIRTUALENV_NAME
     exit /b 1
-)
-
-if "%VENV_NAME%"=="--quiet" (
-    set QUIET=1
-    set VENV_NAME=%~2
 )
 
 :: Check if virtualenv exists
@@ -41,5 +40,3 @@ if not exist "%VENV_PATH%\Scripts\activate.bat" (
 call "%VENV_PATH%\Scripts\activate.bat"
 
 if not defined QUIET echo Activated virtualenv: %VENV_NAME%
-
-endlocal

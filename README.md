@@ -171,8 +171,6 @@ Alternatively, you can install manually:
 
 #### Usage
 
-#### Usage
-
 This repository provides Windows batch scripts (.bat) in the `bin-win/` directory to add virtualenv functionality to pyenv-win. See [bin-win/README.md](bin-win/README.md) for detailed documentation.
 
 ```powershell
