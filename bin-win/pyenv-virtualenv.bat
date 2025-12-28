@@ -124,7 +124,9 @@ if errorlevel 1 (
 
 :: Create symlink for easy access
 if exist "%VENV_LINK%" (
-    if exist "%VENV_LINK%\python.exe" (
+    :: Check if it's a directory junction/symlink
+    dir /AL "%VENV_LINK%" >nul 2>&1
+    if not errorlevel 1 (
         rmdir "%VENV_LINK%"
     ) else (
         del "%VENV_LINK%"

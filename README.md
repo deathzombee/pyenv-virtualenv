@@ -118,6 +118,38 @@ This repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as 
 
 **Using pyenv-virtualenv with pyenv-win:**
 
+#### Quick Install (PowerShell)
+
+1. **Ensure pyenv-win is installed**
+
+   If you don't have pyenv-win yet, install it first:
+   ```powershell
+   Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+   ```
+
+2. **Clone and install pyenv-virtualenv**
+
+   ```powershell
+   # Clone the repository with submodules
+   git clone --recursive https://github.com/pyenv/pyenv-virtualenv.git
+   cd pyenv-virtualenv
+   
+   # Run the installer
+   .\install-pyenv-virtualenv.ps1
+   ```
+
+   The installer will:
+   - Check for pyenv-win installation
+   - Copy the Windows scripts to the appropriate location
+   - Add the scripts to your PATH
+   - Display usage instructions
+
+3. **Restart your terminal** and start using pyenv-virtualenv commands!
+
+#### Manual Installation
+
+Alternatively, you can install manually:
+
 1. **Clone this repository with submodules**
 
    ```powershell
@@ -125,11 +157,7 @@ This repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as 
    cd pyenv-virtualenv
    ```
 
-2. **Install pyenv-win** (if not already installed)
-
-   The pyenv-win submodule provides the base Python version management. Follow the [pyenv-win installation instructions](https://github.com/pyenv-win/pyenv-win) or use the included submodule.
-
-3. **Add the Windows scripts to your PATH**
+2. **Add the Windows scripts to your PATH**
 
    Add the `bin-win` directory to your PATH so the pyenv-virtualenv commands are available:
    
@@ -141,26 +169,28 @@ This repository includes [pyenv-win](https://github.com/pyenv-win/pyenv-win) as 
    [System.Environment]::SetEnvironmentVariable('PATH', "C:\path\to\pyenv-virtualenv\bin-win;$env:PATH", 'User')
    ```
 
-4. **Use pyenv-virtualenv commands on Windows**
+#### Usage
 
-   This repository provides Windows batch scripts (.bat) in the `bin-win/` directory to add virtualenv functionality to pyenv-win. See [bin-win/README.md](bin-win/README.md) for detailed documentation.
-   
-   ```powershell
-   # Create a virtualenv
-   pyenv-virtualenv <python-version> <virtualenv-name>
-   
-   # Activate a virtualenv  
-   pyenv activate <virtualenv-name>
-   
-   # Deactivate
-   pyenv deactivate
-   
-   # List virtualenvs
-   pyenv-virtualenvs
-   
-   # Delete a virtualenv
-   pyenv-virtualenv-delete <virtualenv-name>
-   ```
+#### Usage
+
+This repository provides Windows batch scripts (.bat) in the `bin-win/` directory to add virtualenv functionality to pyenv-win. See [bin-win/README.md](bin-win/README.md) for detailed documentation.
+
+```powershell
+# Create a virtualenv
+pyenv-virtualenv <python-version> <virtualenv-name>
+
+# Activate a virtualenv  
+pyenv activate <virtualenv-name>
+
+# Deactivate
+pyenv deactivate
+
+# List virtualenvs
+pyenv-virtualenvs
+
+# Delete a virtualenv
+pyenv-virtualenv-delete <virtualenv-name>
+```
 
 ### Alternative: Use Windows Subsystem for Linux (WSL)
    
